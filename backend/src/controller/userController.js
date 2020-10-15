@@ -1,6 +1,6 @@
 const User = require('../model/User');
 const bcrypt = require('bcryptjs');
-const generateToken = require('../utils/generateToken');
+const { generateUserToken } = require('../utils/generateToken');
 
 module.exports = {
   async create(req, res) {
@@ -13,7 +13,7 @@ module.exports = {
   
       user.senha = undefined;
   
-      return res.send({ user, token: generateToken(user.id) });
+      return res.send({ user, token: generateUserToken(user.id) });
     } catch (err) {
       return res.status(400).send({ error: 'Registration failed' });
     }
@@ -35,7 +35,7 @@ module.exports = {
 
       user.senha = undefined;
 
-      res.send({ user, token: generateToken(user.id) });
+      res.send({ user, token: generateUserToken(user.id) });
     } catch (err) {
       return res.status(400).send({ error: 'Authentication failed' });
     }

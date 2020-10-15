@@ -1,18 +1,24 @@
 const express = require('express');
 const route = express.Router();
 
-const userController = require('./controller/userController');
-const cuidController = require('./controller/cuidController');
+const authUserMiddleware = require('./middleware/authUserMiddleware');
 
-// Rotas de Cadastro/Login do usuario
-route.post('/user/register', userController.create);
-route.post('/user/authenticate', userController.auth);
+const cuidController = require('./controller/cuidController');
+const userController = require('./controller/userController');
+const pacController = require('./controller/pacController');
 
 // Rotas de Cadastro/Login do cuidador
 route.post('/cuid/register', cuidController.create);
 route.post('/cuid/authenticate', cuidController.auth);
 
-// Rotas de cadastro do pac
-// route.get('/cadastro/pac', );
+// Rota de criação do pedido
+// route.get('/', );
+
+// Rotas de Cadastro/Login do usuario
+route.post('/user/register', userController.create);
+route.post('/user/authenticate', userController.auth);
+
+// Rota de cadastro do pac
+route.get('/pac/register', authUserMiddleware, pacController.index);
 
 module.exports = route;

@@ -1,6 +1,6 @@
 const Cuid = require('../model/Cuid');
 const bcrypt = require('bcryptjs');
-const generateToken = require('../utils/generateToken');
+const { generateCuidToken } = require('../utils/generateToken');
 
 module.exports = {
   async create(req, res) {
@@ -13,7 +13,7 @@ module.exports = {
   
       cuid.senha = undefined;
   
-      return res.send({ cuid, token: generateToken(cuid.id) });
+      return res.send({ cuid, token: generateCuidToken(cuid.id) });
     } catch (err) {
       return res.status(400).send({ error: 'Registration failed' });
     }
@@ -35,7 +35,7 @@ module.exports = {
 
       cuid.senha = undefined;
 
-      res.send({ cuid, token: generateToken(cuid.id) });
+      res.send({ cuid, token: generateCuidToken(cuid.id) });
     } catch (err) {
       return res.status(400).send({ error: 'Authentication failed' });
     }
