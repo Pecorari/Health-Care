@@ -19,6 +19,20 @@ module.exports = {
     }
   },
 
+  async complete(req, res) {
+    await Cuid.update(req.body, { where: { id: req.userId } })
+      .then(async () => {
+        const cuid = await Cuid.findOne({ where: { id: req.userId } })
+
+        cuid.senha = undefined;
+
+        return res.send({ cuid });
+      })
+      .catch(() => {
+        return res.status(400).send({ error: 'Failed to complete registration' });
+      });
+  },
+
   async auth(req, res) {
     try {
       const { email, senha } = req.body;
