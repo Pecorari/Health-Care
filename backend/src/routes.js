@@ -19,6 +19,8 @@ route.post('/cuid/authenticate', cuidController.auth);
 // Rotas de Cadastro/Login do usuario
 route.post('/user/register', userController.create);
 route.post('/user/authenticate', userController.auth);
+route.post('/user/forgot_password', userController.recSenha);
+route.post('/user/reset_password', userController.resSenha);
 
 // Rota de cadastro do pac
 route.get('/pac/register', authUserMiddleware, pacController.index);
