@@ -7,6 +7,8 @@ class User extends Model {
       nome: DataTypes.STRING,
       email: DataTypes.STRING,
       senha: DataTypes.STRING,
+      password_reset_token: DataTypes.STRING,
+      password_reset_expires: DataTypes.DATE,
     }, {
       hooks: {
         beforeCreate: async (user) => {

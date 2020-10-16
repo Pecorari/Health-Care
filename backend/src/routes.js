@@ -12,6 +12,8 @@ const pacController = require('./controller/pacController');
 route.post('/cuid/register', cuidController.create);
 route.post('/cuid/complete', authCuidMiddleware, cuidController.complete);
 route.post('/cuid/authenticate', cuidController.auth);
+route.post('/cuid/forgot_password', cuidController.recSenha);
+route.post('/cuid/reset_password', cuidController.resSenha);
 
 // Rota de criação do pedido
 // route.get('/', );
