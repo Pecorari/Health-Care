@@ -3,6 +3,7 @@ const { Model, DataTypes } = require('sequelize');
 class Pac extends Model {
   static init(connection) {
     super.init({
+      user_id: DataTypes.INTEGER,
       nome: DataTypes.STRING,
       idade: DataTypes.INTEGER,
       sexo: DataTypes.STRING,

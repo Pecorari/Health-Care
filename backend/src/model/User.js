@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 class User extends Model {
   static init(connection) {
     super.init({
+      pac_id: DataTypes.INTEGER,
+      ped_id: DataTypes.INTEGER,
       nome: DataTypes.STRING,
       email: DataTypes.STRING,
       senha: DataTypes.STRING,
@@ -21,10 +23,10 @@ class User extends Model {
     })
   }
 
-  // static associate(models) {
-  //   this.belongsToMany(models.User, { foreignKey: 'pac_id', as: 'paciente' });
-  //   this.belongsToMany(models.User, { foreignKey: 'ped_id', as: 'pedido' });
-  // }
+  static associate(models) {
+    this.belongsToMany(models.User, { foreignKey: 'pac_id', as: 'paciente' });
+    this.belongsToMany(models.User, { foreignKey: 'ped_id', as: 'pedido' });
+  }
 }
 
 module.exports = User;
