@@ -29,6 +29,10 @@ class Cuid extends Model {
       sequelize: connection
     })
   }
+
+  // static associate(models) {
+  //   this.belongsToMany(models.User, { foreignKey: 'ped_id', as: 'pedido' });
+  // }
 }
 
 module.exports = Cuid;

@@ -30,8 +30,6 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: true,
       },
-
-
       ocupacao: {
         type: Sequelize.STRING,
         allowNull: true,
