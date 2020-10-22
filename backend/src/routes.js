@@ -43,12 +43,12 @@ route.delete('/user/pac/delete/:id', authUserMiddleware, pacController.delete);
 // Parte do PED
 
 // Rota para listar os pedidos
-route.get('/user/ped/', authUserMiddleware, pedController.index)
+route.get('/user/ped/', authUserMiddleware, pedController.index);
 // Rota para cadastrar os pedidos
 route.post('/user/ped/:pac_id/:cuid_id/register', authUserMiddleware, pedController.create);
 // Rota para editar os pedidos
-// route.put('/user/ped/:pac_id/:cuid_id/edit', authUserMiddleware, pedController.update);
+route.put('/user/ped/:id/edit', authUserMiddleware, pedController.update);
 // Rota para apagar os pedidos
-// route.delete('/user/ped/:pac_id/:cuid_id/delete', authUserMiddleware, pedController.delete);
+route.delete('/user/ped/:id/delete', authUserMiddleware, pedController.delete);
 
 module.exports = route;

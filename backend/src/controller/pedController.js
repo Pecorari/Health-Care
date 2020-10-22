@@ -2,6 +2,7 @@ const Cuid = require('../model/Cuid');
 const User = require('../model/User');
 const Pac = require('../model/Pac');
 const Ped = require('../model/Ped');
+const { update } = require('./pacController');
 
 module.exports = {
   async index(req, res) {
@@ -48,6 +49,45 @@ module.exports = {
       hora_i,
       hora_f
     });
+
+    await User.update({ped_id: ped.id}, {where: {id: user_id}});
+    await Cuid.update({ped_id: ped.id}, {where: {id: cuid_id}});
+
+    return res.json(ped);
+  },
+
+  async update(req, res) {
+    const user_id = req.userId;
+    const { id } = req.params;
+    const { situacao, descricao, data_i, data_f, hora_i, hora_f } = req.body;
+
+    const user = await User.findByPk(user_id);
+    if(!user) {
+      return res.status(400).send({ error: 'User not found' });
+    }
+
+    const ped = await Ped.update({
+      situacao,
+      descricao,
+      data_i,
+      data_f,
+      hora_i,
+      hora_f,
+    }, { where: { id } });
+
+    return res.json(ped);
+  },
+
+  async delete(req, res) {
+    const user_id = req.userId;
+    const { id } = req.params;
+
+    const user = await User.findByPk(user_id);
+    if(!user) {
+      return res.status(400).send({ error: 'User not found' });
+    }
+
+    const ped = await Ped.destroy({ where: { id } });
 
     return res.json(ped);
   }
