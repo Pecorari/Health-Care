@@ -2,7 +2,6 @@ const Cuid = require('../model/Cuid');
 const User = require('../model/User');
 const Pac = require('../model/Pac');
 const Ped = require('../model/Ped');
-const { update } = require('./pacController');
 
 module.exports = {
   async index(req, res) {
@@ -66,6 +65,11 @@ module.exports = {
       return res.status(400).send({ error: 'User not found' });
     }
 
+    const ped_validation = await Ped.findByPk(id);
+    if (!(ped_validation.user_id === user_id)) {
+      return res.status(400).send({ error: "You can't update this pac" });
+    }
+
     const ped = await Ped.update({
       situacao,
       descricao,
@@ -85,6 +89,11 @@ module.exports = {
     const user = await User.findByPk(user_id);
     if(!user) {
       return res.status(400).send({ error: 'User not found' });
+    }
+
+    const ped_validation = await Ped.findByPk(id);
+    if (!(ped_validation.user_id === user_id)) {
+      return res.status(400).send({ error: "You can't delete this pac" });
     }
 
     const ped = await Ped.destroy({ where: { id } });

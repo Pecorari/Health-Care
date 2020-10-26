@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 class Cuid extends Model {
   static init(connection) {
     super.init({
-      ped_id: DataTypes.INTEGER,
+      // ped_id: DataTypes.INTEGER,
       nome: DataTypes.STRING,
       email: DataTypes.STRING,
       senha: DataTypes.STRING,
@@ -31,9 +31,6 @@ class Cuid extends Model {
     })
   }
 
-  static associate(models) {
-    this.belongsToMany(models.User, { foreignKey: 'ped_id', as: 'pedido' });
-  }
 }
 
 module.exports = Cuid;

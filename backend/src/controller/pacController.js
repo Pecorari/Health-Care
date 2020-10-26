@@ -38,8 +38,6 @@ module.exports = {
       endereco
     });
 
-    await User.update({pac_id: pac.id}, {where: {id: user_id}});
-
     return res.json(pac);
   },
 
@@ -51,6 +49,11 @@ module.exports = {
     const user = await User.findByPk(user_id);
     if(!user) {
       return res.status(400).send({ error: 'User not found' });
+    }
+
+    const pac_validation = await Pac.findByPk(id);
+    if (!(pac_validation.user_id === user_id)) {
+      return res.status(400).send({ error: "You can't update this pac" });
     }
 
     const pac = await Pac.update({
@@ -75,6 +78,11 @@ module.exports = {
     const user = await User.findByPk(user_id);
     if(!user) {
       return res.status(400).send({ error: 'User not found' });
+    }
+    
+    const pac_validation = await Pac.findByPk(id);
+    if (!(pac_validation.user_id === user_id)) {
+      return res.status(400).send({ error: "You can't delete this pac" });
     }
 
     const pac = await Pac.destroy({ where: { id } });
